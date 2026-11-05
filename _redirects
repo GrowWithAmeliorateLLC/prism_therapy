@@ -2,6 +2,12 @@
 # Service pages and /get-started/ keep the old WordPress paths, so
 # prismspeechatx.com/<path> can redirect 1:1 onto this domain.
 
+# Old domain -> new domain, path preserved (301). Must stay at the TOP of this file.
+https://prismspeechatx.com/*      https://prismtherapyatx.com/:splat  301!
+https://www.prismspeechatx.com/*  https://prismtherapyatx.com/:splat  301!
+http://prismspeechatx.com/*       https://prismtherapyatx.com/:splat  301!
+http://www.prismspeechatx.com/*   https://prismtherapyatx.com/:splat  301!
+
 # Old WordPress pages that don't exist on the new site
 /about/            /#about          301
 /about             /#about          301
