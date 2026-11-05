@@ -28,3 +28,6 @@
 /wp-login.php      /404.html  410
 /feed/*            /          301
 /feed              /          301
+
+# Internal tooling, not part of the site
+/tools/*   /404.html  404
