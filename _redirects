@@ -1,1 +1,30 @@
-/    /prism-therapy-homepage-draft.html    200
+# Prism Therapy — prismtherapyatx.com
+# Service pages and /get-started/ keep the old WordPress paths, so
+# prismspeechatx.com/<path> can redirect 1:1 onto this domain.
+
+# Old WordPress pages that don't exist on the new site
+/about/            /#about          301
+/about             /#about          301
+/therapy-services/ /#services       301
+/therapy-services  /#services       301
+/education/        /#about          301
+/education         /#about          301
+/in-the-press/     /                301
+/in-the-press      /                301
+/blog/             /                301
+/blog              /                301
+/contact-us/       /get-started/    301
+/contact-us        /get-started/    301
+/privacy-policy/   /privacy/        301
+/privacy-policy    /privacy/        301
+
+# Old site's spam/demo posts: gone for good
+/demo-post-1/                                    /404.html  410
+/demo-post-2/                                    /404.html  410
+/demo-post-3/                                    /404.html  410
+/fascinating-footage-reveals-the-secret-life-924672/  /404.html  410
+/estrategias-brillantes-y-apuestas-seguras-c-924316/  /404.html  410
+/wp-admin/*        /404.html  410
+/wp-login.php      /404.html  410
+/feed/*            /          301
+/feed              /          301
