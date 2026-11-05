@@ -30,4 +30,4 @@
 /feed              /          301
 
 # Internal tooling, not part of the site
-/tools/*   /404.html  404
+/tools/*   /404.html  404!
