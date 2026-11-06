@@ -18,17 +18,37 @@
 
     function val(name) { var el = form.elements[name]; return el && el.value ? el.value.trim() : ''; }
 
+    // Step 2: after the lead is saved in HighLevel, show the IntakeQ 15-min phone consult calendar.
+    // Office matches the therapist on the call, then books the evaluation (Ashley/Renée 11/6/2026).
+    var IQ_ACCOUNT = '62d33965da9e641848af4a69';
+    var IQ_SERVICE = '20651393-77d1-4abb-87c2-eccaaa50f018';
+    var IQ_LINK = 'https://intakeq.com/booking/e3wtlj?serviceId=' + IQ_SERVICE;
+
     function thanks() {
       var first = (val('name').split(' ')[0]) || 'there';
       var box = document.createElement('div');
       box.setAttribute('role', 'status');
-      box.style.cssText = 'text-align:center;padding:22px 8px';
+      box.style.cssText = 'text-align:center;padding:10px 0';
       box.innerHTML =
         '<div style="font-size:2rem" aria-hidden="true">🌈</div>' +
-        '<h3 style="margin:8px 0 6px">Thank you, ' + first.replace(/[<>&"]/g, '') + '!</h3>' +
-        '<p style="font-weight:600;color:#55504a;max-width:44ch;margin:0 auto">We got your note. Check your email for new patient information and answers to common questions, and we\'ll be in touch soon to help you find the right first step.</p>';
+        '<p class="kick" style="color:var(--magenta);margin-top:6px">Step 2 of 2</p>' +
+        '<h3 style="margin:4px 0 6px">Thanks, ' + first.replace(/[<>&"]/g, '') + '! Now pick a time for your phone consult.</h3>' +
+        '<p style="font-weight:600;color:#55504a;max-width:48ch;margin:0 auto 14px">It\'s a quick 15-minute call so we can match you with the right therapist. We also emailed you new patient information and answers to common questions.</p>' +
+        '<div id="intakeq" style="max-width:720px;width:100%;margin:0 auto;text-align:left"></div>' +
+        '<p style="font-size:.84rem;font-weight:700;margin-top:12px">Calendar not loading? <a href="' + IQ_LINK + '" target="_blank" rel="noopener" style="color:var(--magenta);text-decoration:underline">Pick a time here</a> or call <a href="tel:+15123870332">(512) 387-0332</a>.</p>';
       form.replaceWith(box);
-      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (!document.getElementById('iq-widget')) {
+        window.intakeq = IQ_ACCOUNT;
+        window.intakeqServiceId = IQ_SERVICE;
+        var s = document.createElement('script');
+        s.id = 'iq-widget';
+        s.async = true;
+        s.src = 'https://intakeq.com/js/widget.min.js?1';
+        document.head.appendChild(s);
+      }
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'consult_calendar_shown', form_source: form.getAttribute('data-source') || '' });
+      box.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function failed(btn, orig) {
