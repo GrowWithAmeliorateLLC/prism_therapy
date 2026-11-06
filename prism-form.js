@@ -18,37 +18,29 @@
 
     function val(name) { var el = form.elements[name]; return el && el.value ? el.value.trim() : ''; }
 
-    // Step 2: after the lead is saved in HighLevel, show the IntakeQ 15-min phone consult calendar.
+    // Step 2: after the lead is saved in HighLevel, show a button to the IntakeQ 15-min phone consult booking page.
     // Office matches the therapist on the call, then books the evaluation (Ashley/Renée 11/6/2026).
-    var IQ_ACCOUNT = '62d33965da9e641848af4a69';
-    var IQ_SERVICE = '20651393-77d1-4abb-87c2-eccaaa50f018';
-    var IQ_LINK = 'https://intakeq.com/booking/e3wtlj?serviceId=' + IQ_SERVICE;
+    var IQ_LINK = 'https://intakeq.com/booking/e3wtlj?serviceId=20651393-77d1-4abb-87c2-eccaaa50f018';
 
     function thanks() {
       var first = (val('name').split(' ')[0]) || 'there';
+      var src = form.getAttribute('data-source') || '';
       var box = document.createElement('div');
       box.setAttribute('role', 'status');
-      box.style.cssText = 'text-align:center;padding:10px 0';
+      box.style.cssText = 'text-align:center;padding:14px 4px';
       box.innerHTML =
         '<div style="font-size:2rem" aria-hidden="true">🌈</div>' +
         '<p class="kick" style="color:var(--magenta);margin-top:6px">Step 2 of 2</p>' +
-        '<h3 style="margin:4px 0 6px">Thanks, ' + first.replace(/[<>&"]/g, '') + '! Now pick a time for your phone consult.</h3>' +
-        '<p style="font-weight:600;color:#55504a;max-width:48ch;margin:0 auto 14px">It\'s a quick 15-minute call so we can match you with the right therapist. We also emailed you new patient information and answers to common questions.</p>' +
-        '<div id="intakeq" style="max-width:720px;width:100%;margin:0 auto;text-align:left"></div>' +
-        '<p style="font-size:.84rem;font-weight:700;margin-top:12px">Calendar not loading? <a href="' + IQ_LINK + '" target="_blank" rel="noopener" style="color:var(--magenta);text-decoration:underline">Pick a time here</a> or call <a href="tel:+15123870332">(512) 387-0332</a>.</p>';
+        '<h3 style="margin:4px 0 8px">Thanks, ' + first.replace(/[<>&"]/g, '') + '! Now pick a time for your phone consult.</h3>' +
+        '<p style="font-weight:600;color:#55504a;max-width:46ch;margin:0 auto 18px">It\'s a quick 15-minute call so we can match you with the right therapist. We also emailed you new patient information and answers to common questions.</p>' +
+        '<a class="btn cy iq-book" href="' + IQ_LINK + '" target="_blank" rel="noopener" style="display:inline-block;font-size:1rem;padding:15px 28px">Pick my consult time →</a>' +
+        '<p style="font-size:.84rem;font-weight:700;margin-top:14px">Prefer to call? <a href="tel:+15123870332">(512) 387-0332</a></p>';
       form.replaceWith(box);
-      if (!document.getElementById('iq-widget')) {
-        window.intakeq = IQ_ACCOUNT;
-        window.intakeqServiceId = IQ_SERVICE;
-        var s = document.createElement('script');
-        s.id = 'iq-widget';
-        s.async = true;
-        s.src = 'https://intakeq.com/js/widget.min.js?1';
-        document.head.appendChild(s);
-      }
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event: 'consult_calendar_shown', form_source: form.getAttribute('data-source') || '' });
-      box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      box.querySelector('.iq-book').addEventListener('click', function () {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'consult_booking_click', form_source: src });
+      });
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     function failed(btn, orig) {
