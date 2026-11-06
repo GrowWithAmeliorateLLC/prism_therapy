@@ -33,8 +33,7 @@
         '<p class="kick" style="color:var(--magenta);margin-top:6px">Step 2 of 2</p>' +
         '<h3 style="margin:4px 0 8px">Thanks, ' + first.replace(/[<>&"]/g, '') + '! Now pick a time for your phone consult.</h3>' +
         '<p style="font-weight:600;color:#55504a;max-width:46ch;margin:0 auto 18px">It\'s a quick 15-minute call so we can match you with the right therapist. We also emailed you new patient information and answers to common questions.</p>' +
-        '<a class="btn cy iq-book" href="' + IQ_LINK + '" target="_blank" rel="noopener" style="display:inline-block;font-size:1rem;padding:15px 28px">Pick my consult time →</a>' +
-        '<p style="font-size:.84rem;font-weight:700;margin-top:14px">Prefer to call? <a href="tel:+15123870332">(512) 387-0332</a></p>';
+        '<a class="btn cy iq-book" href="' + IQ_LINK + '" target="_blank" rel="noopener" style="display:inline-block;font-size:1rem;padding:15px 28px">Pick my consult time →</a>';
       form.replaceWith(box);
       box.querySelector('.iq-book').addEventListener('click', function () {
         window.dataLayer = window.dataLayer || [];
